@@ -3,6 +3,7 @@ import urllib2
 import sys
 import time
 import math
+import collections
 
 def jaccard(v1, v2):
     numerator = sum([c in v2 for c in v1])
@@ -25,11 +26,15 @@ for line in sys.stdin:
 for u1, p1 in user.iteritems():
     temp = []
     for u2, p2 in user.iteritems():
-        if p1.issubset(p2) or p1.issuperset(p2):
+        if p1.issuperset(p2):
             continue
         sim = jaccard(p1, p2)
         if sim != 1.0:
-            temp.append((sim, u1, u2))
+            temp.append((sim, u2, p2))
     temp.sort()
-    for t in temp[-10:]:
-        print t
+    rec = collections.Counter()
+    for sim, u2, p2 in temp[-10:]:
+        for item in p2:
+            if item not in p1:
+                rec[item] += sim# / len(p2)
+    print u1, rec.most_common(5)
