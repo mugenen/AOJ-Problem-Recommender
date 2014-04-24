@@ -21,8 +21,10 @@ $(document).ready(function(){
         });
 
 
+        $('#user').remove();
         $('#rec_list').remove();
         $('#user_list').remove();
+        $('#sim_user').before('<p id="user"><a href="http://judge.u-aizu.ac.jp/onlinejudge/user.jsp?id=' + userid + '">' + userid + '</a></p>');
         $('#rec').after(rlist);
         $('#sim_user').after(ulist);
     };
