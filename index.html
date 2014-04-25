@@ -10,6 +10,7 @@ $(document).ready(function(){
     update = function(userid) {
         if(!(userid in data)) {
             alert('データに含まれないユーザーIDです');
+            return;
         }
         var rlist = $('<ol id="rec_list">');
         $.each(data[userid]['item'], function(i, v) {
@@ -17,7 +18,7 @@ $(document).ready(function(){
         });
         var ulist = $('<ol id="user_list">');
         $.each(data[userid]['user'], function(i, v) {
-            ulist.append('<li><a href="http://judge.u-aizu.ac.jp/onlinejudge/user.jsp?id=' + v + '">' + v + '</a></li>');
+            ulist.append('<li><a href="javascript:void(0);" onclick="update(\'' + v + '\');">' + v + '</a></li>');
         });
 
 
